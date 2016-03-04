@@ -1,20 +1,20 @@
-var app = require('app');
-var BrowserWindow = require('browser-window');
-var Menu = require('menu');
+app = require('app')
+BrowserWindow = require('browser-window')
+Menu = require('menu')
 
-require('crash-reporter').start();
+require('crash-reporter').start()
 
-var mainWindow = null;
+mainWindow = null
 
-app.on('window-all-closed', function() {
+app.on('window-all-closed', () ->
   if (process.platform != 'darwin')
-    app.quit();
-});
+    app.quit()
+)
 
-var showSetting = function() {
-}
-var name = 'first';
-var menu = Menu.buildFromTemplate([
+showSetting = () ->
+
+name = 'first'
+menu = Menu.buildFromTemplate([
   {
     label: name,
     submenu: [
@@ -86,36 +86,33 @@ var menu = Menu.buildFromTemplate([
       {
         label: 'Reload',
         accelerator: 'CmdOrCtrl+R',
-        click: function(item, focusedWindow) {
+        click: (item, focusedWindow) ->
           if (focusedWindow)
-            focusedWindow.reload();
-        }
+            focusedWindow.reload()
       },
       {
         label: 'Toggle Full Screen',
-        accelerator: (function() {
+        accelerator: (() ->
           if (process.platform == 'darwin')
-            return 'Ctrl+Command+F';
+            return 'Ctrl+Command+F'
           else
             return 'F11';
-        })(),
-        click: function(item, focusedWindow) {
+        )(),
+        click: (item, focusedWindow) ->
           if (focusedWindow)
-            focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
-        }
+            focusedWindow.setFullScreen(!focusedWindow.isFullScreen())
       },
       {
         label: 'Toggle Developer Tools',
-        accelerator: (function() {
+        accelerator: (() ->
           if (process.platform == 'darwin')
             return 'Alt+Command+I';
           else
             return 'Ctrl+Shift+I';
-        })(),
-        click: function(item, focusedWindow) {
+        )(),
+        click: (item, focusedWindow) ->
           if (focusedWindow)
-            focusedWindow.toggleDevTools();
-        }
+            focusedWindow.toggleDevTools()
       },
     ]
   },
@@ -141,20 +138,20 @@ var menu = Menu.buildFromTemplate([
     submenu: [
       {
         label: 'Learn More',
-        click: function() { require('electron').shell.openExternal('http://electron.atom.io') }
+        click: () -> require('electron').shell.openExternal('http://electron.atom.io')
       },
     ]
   },
 ]);
 
-app.on('ready', function() {
-  // ブラウザ(Chromium)の起動, 初期画面のロード
+app.on('ready', () ->
+  # ブラウザ(Chromium)の起動, 初期画面のロード
 
-  mainWindow = new BrowserWindow({width: 800, height: 600});
-  mainWindow.loadUrl('file://' + __dirname + '/index.html');
-  Menu.setApplicationMenu(menu);
+  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow.loadUrl('file://' + __dirname + '/index.html')
+  Menu.setApplicationMenu(menu)
 
-  mainWindow.on('closed', function() {
-    mainWindow = null;
-  });
-});
+  mainWindow.on('closed', () ->
+    mainWindow = null
+  )
+)

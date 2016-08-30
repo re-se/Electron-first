@@ -1,5 +1,5 @@
 window.onload = () ->
-  remote = require 'remote'
+  # remote = require('electron').remote
   React = require 'react'
   ReactDOM = require 'react-dom'
   Contents = React.createClass

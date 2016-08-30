@@ -1,7 +1,5 @@
 mkdir pack
 cp -r ./dist pack
-cp index.html pack
-cp main.js pack
 cp package.json pack
 cd ./pack
 npm install --production

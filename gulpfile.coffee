@@ -5,7 +5,7 @@ __srcdir = './src/'
 __distdir = './dist/'
 
 gulp.task 'jade', () ->
-  gulp.src __srcdir + 'index.jade'
+  gulp.src __srcdir + 'index.jade', locals: require './package.json'
     .pipe $.plumber(
       errorHandler: $.notify.onError('Error: <%= error.message %>')
     ).pipe $.jade()
@@ -44,7 +44,7 @@ gulp.task 'watch', ['jade', 'cjsx', 'coffee', 'less', 'top'], () ->
   gulp.watch __srcdir + '**/*.jade', ['jade']
   gulp.watch __srcdir + 'css/*.less', ['less']
   gulp.watch __srcdir + 'coffee/**/*.cjsx', ['cjsx']
-  gulp.watch __srcdir + 'coffee/**/*.coffee', ['coffee']
+  # gulp.watch __srcdir + 'coffee/**/*.coffee', ['coffee']
   gulp.watch __srcdir + 'main.coffee', ['top']
   gulp.watch [__distdir + 'main.js', __distdir + 'js/browser/*.js'], electron.restart
   gulp.watch [__distdir + 'index.html', __distdir + '**/*.{html,js,css}'], electron.reload
